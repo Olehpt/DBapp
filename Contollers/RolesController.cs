@@ -54,8 +54,10 @@ namespace DBapp.Contollers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RoleId,DisplayName")] Role role)
+        public async Task<IActionResult> Create([Bind("DisplayName")] Role role)
         {
+            var lastId = _context.Roles.Max(p => p.RoleId);
+            role.RoleId = lastId + 1;
             if (ModelState.IsValid)
             {
                 _context.Add(role);
