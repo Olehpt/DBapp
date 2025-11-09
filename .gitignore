@@ -1,0 +1,21 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pdb
