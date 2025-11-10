@@ -68,6 +68,7 @@ public partial class DB1Context : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
+            entity.HasQueryFilter(e => !e.IsDeleted);
             entity.Property(e => e.CategoryId)
                 .ValueGeneratedNever()
                 .HasColumnName("CategoryID");

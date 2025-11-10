@@ -140,10 +140,16 @@ namespace DBapp.Contollers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = _context.Categories
+            .Include(c => c.Products) 
+            .FirstOrDefault(c => c.CategoryId == id);
             if (category != null)
             {
-                _context.Categories.Remove(category);
+                category.IsDeleted = true;
+                foreach (var product in category.Products)
+                {
+                    product.CategoryId = null;
+                }
             }
 
             await _context.SaveChangesAsync();
