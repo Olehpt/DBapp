@@ -7,26 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DBapp.Data;
 using DBapp.Models;
-using NuGet.Protocol.Plugins;
 
 namespace DBapp.Contollers
 {
-    public class RolesController : Controller
+    public class CategoriesController : Controller
     {
         private readonly DB1Context _context;
 
-        public RolesController(DB1Context context)
+        public CategoriesController(DB1Context context)
         {
             _context = context;
         }
 
-        // GET: Roles
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Roles.ToListAsync());
+            return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Roles/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,44 +33,40 @@ namespace DBapp.Contollers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.RoleId == id);
-            if (role == null)
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(category);
         }
 
-        // GET: Roles/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Roles/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DisplayName")] Role role)
+        public async Task<IActionResult> Create([Bind("CategoryId,DisplayName,Picture")] Category category)
         {
-            var lastId = _context.Roles
-                     .Select(u => (int?)u.RoleId)
+            var lastId = _context.Categories
+                     .Select(u => (int?)u.CategoryId)
                      .Max();
-            if (lastId == null) role.RoleId = 0;
-            else role.RoleId = lastId.Value + 1;
-            if (ModelState.IsValid)
-            {
-                _context.Add(role);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(role);
+            if (lastId == null) category.CategoryId = 0;
+            else category.CategoryId = lastId.Value + 1;
+            _context.Add(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Roles/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +74,22 @@ namespace DBapp.Contollers
                 return NotFound();
             }
 
-            var role = await _context.Roles.FindAsync(id);
-            if (role == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(role);
+            return View(category);
         }
 
-        // POST: Roles/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RoleId,DisplayName")] Role role)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,DisplayName,Picture")] Category category)
         {
-            if (id != role.RoleId)
+            if (id != category.CategoryId)
             {
                 return NotFound();
             }
@@ -103,12 +98,12 @@ namespace DBapp.Contollers
             {
                 try
                 {
-                    _context.Update(role);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoleExists(role.RoleId))
+                    if (!CategoryExists(category.CategoryId))
                     {
                         return NotFound();
                     }
@@ -119,10 +114,10 @@ namespace DBapp.Contollers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            return View(category);
         }
 
-        // GET: Roles/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,34 +125,34 @@ namespace DBapp.Contollers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.RoleId == id);
-            if (role == null)
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(category);
         }
 
-        // POST: Roles/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            if (role != null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category != null)
             {
-                _context.Roles.Remove(role);
+                _context.Categories.Remove(category);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoleExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.Roles.Any(e => e.RoleId == id);
+            return _context.Categories.Any(e => e.CategoryId == id);
         }
     }
 }

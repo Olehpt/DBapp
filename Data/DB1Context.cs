@@ -172,7 +172,7 @@ public partial class DB1Context : DbContext
 
             entity.HasOne(d => d.Seller).WithMany(p => p.Products)
                 .HasForeignKey(d => d.SellerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Products_Seller");
         });
 
@@ -194,12 +194,12 @@ public partial class DB1Context : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Reviews_Product");
 
             entity.HasOne(d => d.User).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Reviews_User");
         });
 
@@ -233,12 +233,12 @@ public partial class DB1Context : DbContext
 
             entity.HasOne(d => d.Seller).WithMany(p => p.SellerAccounts)
                 .HasForeignKey(d => d.SellerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_SellerAccounts_Seller");
 
             entity.HasOne(d => d.User).WithOne(p => p.SellerAccount)
                 .HasForeignKey<SellerAccount>(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_SellerAccounts_User");
         });
 
@@ -256,7 +256,7 @@ public partial class DB1Context : DbContext
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Users_Roles");
         });
 
@@ -270,12 +270,12 @@ public partial class DB1Context : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.WishlistItems)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_WishlistItems_Product");
 
             entity.HasOne(d => d.User).WithMany(p => p.WishlistItems)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_WishlistItems_User");
         });
 
