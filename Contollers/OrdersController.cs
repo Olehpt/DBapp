@@ -51,10 +51,10 @@ namespace DBapp.Contollers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["DelieveryMethodId"] = new SelectList(_context.DelieveryMethods, "DelieveryMethodId", "DelieveryMethodId");
-            ViewData["OrderStateId"] = new SelectList(_context.OrderStates, "OrderStateId", "OrderStateId");
-            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethods, "PaymentMethodId", "PaymentMethodId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["DelieveryMethodId"] = new SelectList(_context.DelieveryMethods, "DelieveryMethodId", "DisplayName");
+            ViewData["OrderStateId"] = new SelectList(_context.OrderStates, "OrderStateId", "DisplayName");
+            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethods, "PaymentMethodId", "DisplayName");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Name");
             return View();
         }
 
