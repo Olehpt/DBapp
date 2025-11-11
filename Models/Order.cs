@@ -15,7 +15,7 @@ public partial class Order
 
     public int OrderStateId { get; set; }
 
-    public DateOnly LastEditDate { get; set; }
+    public DateTime LastEditDate { get; set; }
 
     public int DelieveryMethodId { get; set; }
 
@@ -30,4 +30,5 @@ public partial class Order
     public virtual PaymentMethod PaymentMethod { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
+    public bool IsDeleted { get; set; }
 }

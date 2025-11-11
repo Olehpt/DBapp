@@ -4,6 +4,7 @@ using DBapp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DBapp.Migrations
 {
     [DbContext(typeof(DB1Context))]
-    partial class DB1ContextModelSnapshot : ModelSnapshot
+    [Migration("20251111075523_OrderSoftDelete")]
+    partial class OrderSoftDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,8 +103,8 @@ namespace DBapp.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastEditDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("LastEditDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("OrderStateId")
                         .HasColumnType("int")
