@@ -153,9 +153,15 @@ namespace DBapp.Contollers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(p => p.CartItems)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
             if (product != null)
             {
+                foreach (var cartitem in product.CartItems)
+                {
+                    cartitem.ProductId = null;
+                }
                 _context.Products.Remove(product);
             }
 
