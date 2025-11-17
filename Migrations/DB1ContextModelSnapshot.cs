@@ -244,6 +244,8 @@ namespace DBapp.Migrations
 
                     b.HasIndex("SellerId");
 
+                    b.HasIndex("UnitPrice");
+
                     b.ToTable("Products");
                 });
 

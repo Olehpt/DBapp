@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace DBapp.Models;
-
+[Index(nameof(UnitPrice), IsUnique = false)]
 public partial class Product
 {
     public int ProductId { get; set; }
